@@ -40,7 +40,7 @@ public class SessionListener implements HttpSessionListener {
         String token = (String) session.getAttribute("token");
         // 删除t_token表中的数据
         DB.removeToken(token);
-        List<ClientInfo> infoList = DB.T_CLIENT_INFO.remove(token);
+        List<ClientInfo> infoList = DB.removeByToken(token);
         try {
             for (ClientInfo info : infoList) {
                 // 获取出注册的子系统，依次调用子系统的登出方法

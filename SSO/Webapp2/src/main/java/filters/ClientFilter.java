@@ -1,4 +1,4 @@
-package listeners; /**
+package filters; /**
  * Copyright (C), 2015-2020, XXX有限公司
  * FileName: filters.ClientFilter
  * Author:   Slatter
@@ -14,7 +14,9 @@ import utility.HttpUtil;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
-import javax.servlet.http.*;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;

@@ -26,7 +26,7 @@ import java.util.*;
 public class DB {
     private static Set<User> users = new HashSet<>();
     private static Set<String> T_TOKEN = new HashSet<String>();
-    public static Map<String, List<ClientInfo>> T_CLIENT_INFO = new HashMap<String, List<ClientInfo>>();
+    private static Map<String, List<ClientInfo>> T_CLIENT_INFO = new HashMap<String, List<ClientInfo>>();
 
     static {
         addUser("xiaoming","123456");
@@ -68,5 +68,18 @@ public class DB {
         }
     }
 
+    // 得到T_CLIENT_INFO对应token的infoList
+    public static List<ClientInfo> getInfoList(String token) {
+        return T_CLIENT_INFO.get(token);
+    }
 
+    // 提交token所对应的infoList到T_CLIENT_INFO
+    public static void putInfoList(String token, List<ClientInfo> infolist) {
+        T_CLIENT_INFO.put(token, infolist);
+    }
+
+    // 删除指定token对应的
+    public static List<ClientInfo> removeByToken(String token) {
+        return T_CLIENT_INFO.remove(token);
+    }
 }

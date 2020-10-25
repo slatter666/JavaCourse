@@ -61,10 +61,10 @@ public class VerifyServlet extends HttpServlet {
         String sessionId = params.get("sessionId");
         if(DB.isContainToken(token)){
             // 把客户端的登出地址记录
-            List<ClientInfo> clientInfoList= DB.T_CLIENT_INFO.get(token);
+            List<ClientInfo> clientInfoList= DB.getInfoList(token);
             if(clientInfoList==null) {
                 clientInfoList = new ArrayList<ClientInfo>();
-                DB.T_CLIENT_INFO.put(token, clientInfoList);
+                DB.putInfoList(token, clientInfoList);
             }
             ClientInfo info = new ClientInfo();
             info.setClientLogOutUrl(clientLogOutUrl);
