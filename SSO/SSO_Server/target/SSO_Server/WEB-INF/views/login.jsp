@@ -4,11 +4,12 @@
 <head>
     <title>统一认证中心</title>
 </head>
-<body>
-<form id="login" method="post" action="/login">
+<body background="/images/background.jpg">
+
+<form id="login" method="post" action="/login" style="align-content: center">
     <p><input type="hidden" name="redirectUrl" value="${param.redirectUrl}"></p>
-    <p><label>用户名:</label><input type="text" name="username" ></p>
-    <p><label>密码:</label><input type="password" name="password" ></p>
+    <p><font color="white">用户名:</font><input type="text" name="username" ></p>
+    <p><font color="white">密码:</font><input type="password" name="password" ></p>
     <p><input type="submit" value="登录"></p>
 </form>
 </body>
