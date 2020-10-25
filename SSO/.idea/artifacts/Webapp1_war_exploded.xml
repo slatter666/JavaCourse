@@ -1,0 +1,26 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="Webapp1:war exploded">
+    <output-path>$PROJECT_DIR$/Webapp1/target/Webapp1</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <exploded>true</exploded>
+        <module>Webapp1</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="root">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="Webapp1" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="Maven: javax.servlet.jsp:javax.servlet.jsp-api:2.3.1" />
+        </element>
+      </element>
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/Webapp1/target/Webapp1/META-INF/MANIFEST.MF" />
+      </element>
+      <element id="javaee-facet-resources" facet="Webapp1/web/Web" />
+    </root>
+  </artifact>
+</component>

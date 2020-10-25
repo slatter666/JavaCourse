@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="SSO_Server" />
+        <module name="Webapp1" />
+        <module name="SSO" />
+        <module name="Webapp2" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="SSO" target="1.8" />
+      <module name="SSO_Server" target="1.8" />
+      <module name="Webapp1" target="1.8" />
+      <module name="Webapp2" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
