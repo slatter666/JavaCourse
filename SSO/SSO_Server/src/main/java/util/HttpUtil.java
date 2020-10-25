@@ -8,17 +8,10 @@
  * <author>          <time>          <version>          <desc>
  * 作者姓名           修改时间           版本号              描述
  */
-package Utils;
+package util;
 
-import com.sun.istack.internal.Nullable;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.nio.charset.Charset;
-import java.util.Map;
 
 /**
  * 〈一句话功能简述〉<br> 
