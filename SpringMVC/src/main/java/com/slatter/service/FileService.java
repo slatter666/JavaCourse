@@ -40,7 +40,7 @@ public class FileService {
     private final String uploadDir = "/WEB-INF/upload";
     private final String tempDir = "/WEB-INF/temp";
     private final List<String> fileType = Arrays.asList("gif", "jpeg", "jpg", "png", "txt");
-    private final Set<Model> modelList = new HashSet<Model>();   // 将所上传的文件信息放入model中
+    private final Set<Model> modelSet = new HashSet<Model>();   // 将所上传的文件信息放入modelSet中（同名则进行替换）
 
     // 上传文件处理
     public void uploadFile(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -116,7 +116,7 @@ public class FileService {
                             out.close();
                             item.delete();
                             message = "文件上传成功";
-                            modelList.add(new Model(filename, path));
+                            modelSet.add(new Model(filename, path));
                         }
                     }
                 }
@@ -130,7 +130,7 @@ public class FileService {
             message = "文件上传失败";
             e.printStackTrace();
         } finally {
-            System.out.println(modelList);
+            System.out.println(modelSet);
             req.setAttribute("message", message);
         }
     }
@@ -138,6 +138,7 @@ public class FileService {
 
     // 文件下载处理
     public void downloadFile(HttpServletRequest req, HttpServletResponse resp, String name) {
+        List<Model> modelList = new ArrayList<>(modelSet);
         System.out.println(name);
         for (Model model : modelList) {
             String filename = model.getFilename();
@@ -147,11 +148,12 @@ public class FileService {
             }
         }
 
-        Iterator<Model> it = modelList.iterator();
-        if (it.hasNext()){              // while循环去得到所有值
-            Model model1 = it.next();
-            req.setAttribute("model",model1.getFilename());
-        }
+        req.setAttribute("modelList", modelList);
+//        Iterator<Model> it = modelList.iterator();
+//        if (it.hasNext()){              // while循环去得到所有值
+//            Model model1 = it.next();
+//            req.setAttribute("model",model1.getFilename());
+//        }
 
         System.out.println("抱歉，文件库中没有您想要的文件");
     }
