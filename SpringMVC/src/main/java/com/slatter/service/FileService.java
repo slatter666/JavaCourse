@@ -138,23 +138,23 @@ public class FileService {
 
     // 文件下载处理
     public void downloadFile(HttpServletRequest req, HttpServletResponse resp, String name) {
+        boolean isFind = false;
         List<Model> modelList = new ArrayList<>(modelSet);
         System.out.println(name);
         for (Model model : modelList) {
             String filename = model.getFilename();
             String filepath = model.getFilepath();
             if (filename.equals(name)) {
-
+                isFind = true;
             }
         }
 
         req.setAttribute("modelList", modelList);
-//        Iterator<Model> it = modelList.iterator();
-//        if (it.hasNext()){              // while循环去得到所有值
-//            Model model1 = it.next();
-//            req.setAttribute("model",model1.getFilename());
-//        }
 
-        System.out.println("抱歉，文件库中没有您想要的文件");
+        if (!isFind) {
+            System.out.println("抱歉，文件库中没有您想要的文件");
+        }else {
+
+        }
     }
 }
