@@ -6,6 +6,12 @@
 </head>
 <body>
 
+<c:choose>
+    <c:when test="${message != null}">
+        <p style="color: orangered">${message}</p>
+    </c:when>
+</c:choose>
+
 <c:forEach items="${modelList}" var="model">
     <p>${model.getFilename()}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="/download?filename=${model.getFilename()}">下载</a></p>
 </c:forEach>

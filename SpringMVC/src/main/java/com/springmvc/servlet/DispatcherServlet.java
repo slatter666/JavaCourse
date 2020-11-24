@@ -129,13 +129,15 @@ public class DispatcherServlet extends HttpServlet {
                 if (direct instanceof String) {
                     // 跳转jsp
                     String viewName = (String) direct;
-                    if (viewName.contains(":")) {
+                    if (direct==null) {
+                        // do nothing
+                    }else if (viewName.contains(":")) {
                         String viewType = viewName.split(":")[0];
                         String viewPage = viewName.split(":")[1];
                         if (viewType.equals("forward")) {
                             // 请求转发
                             req.getRequestDispatcher(viewPage).forward(req, resp);
-                        } else {
+                        } else if (viewType.equals("redirect")){
                             // 重定向
                             resp.sendRedirect(viewPage);
                         }

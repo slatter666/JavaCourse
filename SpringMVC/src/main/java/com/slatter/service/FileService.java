@@ -21,10 +21,8 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 /**
@@ -39,7 +37,7 @@ import java.util.*;
 public class FileService {
     private final String uploadDir = "/WEB-INF/upload";
     private final String tempDir = "/WEB-INF/temp";
-    private final List<String> fileType = Arrays.asList("gif", "jpeg", "jpg", "png", "txt");
+    private final List<String> fileType = Arrays.asList("gif", "jpeg", "jpg", "png", "txt", "pdf");
     private final Set<Model> modelSet = new HashSet<Model>();   // 将所上传的文件信息放入modelSet中（同名则进行替换）
 
     // 上传文件处理
@@ -98,7 +96,7 @@ public class FileService {
                         // 得到文件后缀名
                         String fileExeName = filename.substring(filename.lastIndexOf(".") + 1);
                         if (!fileType.contains(fileExeName)) {
-                            message = "上传失败!文件类型只能是gif、jpeg、jpg、png、txt";
+                            message = "上传失败!文件类型只能是gif、jpeg、jpg、png、txt、pdf";
                         } else {
                             InputStream in = item.getInputStream();
 
@@ -130,31 +128,56 @@ public class FileService {
             message = "文件上传失败";
             e.printStackTrace();
         } finally {
-            System.out.println(modelSet);
             req.setAttribute("message", message);
         }
     }
 
 
     // 文件下载处理
-    public void downloadFile(HttpServletRequest req, HttpServletResponse resp, String name) {
+    public boolean downloadFile(HttpServletRequest req, HttpServletResponse resp, String name) throws IOException {
         boolean isFind = false;
         List<Model> modelList = new ArrayList<>(modelSet);
-        System.out.println(name);
+        boolean hasFile = modelList.size() > 0;
         for (Model model : modelList) {
-            String filename = model.getFilename();
-            String filepath = model.getFilepath();
-            if (filename.equals(name)) {
+            String fileName = model.getFilename();
+            if (fileName.equals(name)) {
                 isFind = true;
+                // 使其文件下载名不乱码
+                fileName = new String(fileName.getBytes(StandardCharsets.UTF_8), "ISO8859-1");
+                String filepath = model.getFilepath();
+                try {
+                    FileInputStream in = new FileInputStream(filepath);
+                    OutputStream out = resp.getOutputStream();
+                    resp.reset();
+                    // 设置输出格式
+                    resp.setContentType("bin");
+                    resp.addHeader("Content-Disposition", "attachment;filename=" + fileName);
+                    // 循环取出流中的数据
+                    byte[] b = new byte[1024];
+                    int len;
+                    while ((len = in.read(b)) > 0) {
+                        out.write(b, 0, len);
+                    }
+                    in.close();
+                    out.close();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } finally {
+                    System.out.println("文件已被成功下载");
+                }
             }
         }
 
         req.setAttribute("modelList", modelList);
 
-        if (!isFind) {
-            System.out.println("抱歉，文件库中没有您想要的文件");
-        }else {
-
+        if (!hasFile) {
+            String message = "抱歉！文件库中暂时没有文件";
+            req.setAttribute("message", message);
+        } else {
+            req.setAttribute("message", null);
         }
+        return isFind;
     }
 }

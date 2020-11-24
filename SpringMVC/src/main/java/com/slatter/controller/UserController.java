@@ -44,9 +44,13 @@ public class UserController {
     }
 
     @RequestMapping("/download")
-    public String downloadFile(HttpServletRequest req, HttpServletResponse resp, @RequestParam("filename") String filename) {
+    public String downloadFile(HttpServletRequest req, HttpServletResponse resp, @RequestParam("filename") String filename) throws IOException {
         resp.setContentType("text/html;charset=utf-8");
-        fileService.downloadFile(req, resp, filename);
-        return "/download.jsp";
+        boolean isFind = fileService.downloadFile(req, resp, filename);
+        if (isFind) {
+            return null;
+        } else {
+            return "/download.jsp";
+        }
     }
 }

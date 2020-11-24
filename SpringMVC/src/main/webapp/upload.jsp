@@ -9,7 +9,7 @@
     <input type="file" name="filename">
     <button type="submit">上传</button>
     <br>
-    <p style="color: deepskyblue">${requestScope.message}</p>
+    <p style="color: deepskyblue">${message}</p>
     <br>
     <a href="/">返回主界面</a>
 </form>
