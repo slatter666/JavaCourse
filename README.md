@@ -1,4 +1,4 @@
-This is the repository for java expriments
+This is the repository for java experiments
 #### StudentManagement   简单的学生管理系统
 #### TextEditor   简单的文本编辑器
 #### Whiteboard   简单的共享白板
